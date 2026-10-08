@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SheSafe | Women Safety, Emergency SOS & Community Shield</title>
+  <meta name="description" content="SheSafe is an all-in-one personal safety and emergency response web platform for women. One-touch SOS, 24/7 emergency helplines, live GPS location sharing, fake call generator, and safe journey tracking.">
+  <meta name="keywords" content="women safety, emergency sos, shesafe, safety app, 112 emergency, women helpline 1091, personal security">
+  <meta name="theme-color" content="#7c3aed">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 2-Second Opening Splash Screen by PRITAM -->
+  <div id="introSplashScreen" class="intro-splash-screen" role="dialog" aria-modal="true">
+    <div class="splash-inner">
+      <div class="splash-logo-bubble">🛡️❤️</div>
+      <div class="splash-badge">DEVELOPER SAFETY NOTICE • TRIAL MODE</div>
+      <h1 class="splash-title">SheSafe Shield</h1>
+      <div class="splash-statement">
+        &ldquo;This website is developed for your safety by PRITAM it's on trial mode. Wish you best of luck for future❤️&rdquo;
+      </div>
+      <div class="splash-timer-bar-container">
+        <div class="splash-timer-progress"></div>
+      </div>
+      <span class="splash-footnote">Loading safety dashboard...</span>
+    </div>
+  </div>
+
+  <!-- Ambient Background Glow Gradients -->
+  <div class="ambient-glow" aria-hidden="true">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- Emergency Screen Flashing Strobe Overlay -->
+  <div id="strobeOverlay" aria-hidden="true"></div>
+
+  <!-- Top Announcement Bar -->
+  <aside class="trial-top-banner" id="trialTopBanner">
+    <div class="container trial-banner-inner">
+      <span class="trial-pulse-dot"></span>
+      <p class="trial-banner-text">
+        This website is developed for your safety by PRITAM it's on trial mode. Wish you best of luck for future❤️
+      </p>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Bar -->
+  <header class="header-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="brand-wrapper" id="brandLogoLink">
+          <div class="brand-logo-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="brand-title">SheSafe</div>
+            <span class="brand-status-tag">
+              <span class="status-dot-pulse"></span>
+              SHIELD ACTIVE
+            </span>
+          </div>
+        </a>
+
+        <nav>
+          <ul class="nav-links" id="mainNavLinks" style="display: none;">
+            <li><a href="#hero" class="nav-link">SOS Hub</a></li>
+            <li><a href="#safetyGroup" class="nav-link">Safety Group</a></li>
+            <li><a href="#helplines" class="nav-link">Helplines</a></li>
+            <li><a href="#contacts" class="nav-link">Emergency Contacts</a></li>
+            <li><a href="#tools" class="nav-link">Safety Tools</a></li>
+            <li><a href="#guides" class="nav-link">Guides & Rights</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Authenticated User Profile Badge & Logout -->
+          <div id="userProfileNav" class="user-profile-badge" style="display: none;">
+            <div class="user-avatar-sm" id="userAvatarText">U</div>
+            <span class="user-email-text" id="userEmailNav"></span>
+            <button type="button" id="signOutBtn" class="btn-signout" title="Sign Out">Sign Out</button>
+          </div>
+
+          <button id="stealthToggleBtn" class="btn-stealth" title="Instant Stealth / Disguise Screen (Esc)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+            Quick Disguise
+          </button>
+
+          <button id="themeToggleBtn" class="btn-icon" title="Toggle Theme" aria-label="Toggle Theme">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       AUTHENTICATION SECTION (Login & Sign Up for Unauthenticated Users)
+       ========================================================================= -->
+  <section id="authSection" class="auth-section">
+    <div class="container auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-logo-badge">🛡️</div>
+          <h2 class="auth-title">SheSafe Access Portal</h2>
+          <p class="auth-subtitle">Sign in or register your account to access your personal emergency network.</p>
+        </div>
+
+        <!-- Auth Tabs (Sign In / Create Account) -->
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab-btn active" id="tabLoginBtn" role="tab" aria-selected="true">
+            Sign In
+          </button>
+          <button type="button" class="auth-tab-btn" id="tabSignupBtn" role="tab" aria-selected="false">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Dynamic Auth Alert Box -->
+        <div id="authAlertBox" class="auth-alert" style="display: none;" role="alert"></div>
+
+        <!-- 1. LOGIN FORM -->
+        <form id="loginForm" class="auth-form" autocomplete="on">
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">Email Address</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="name@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+              <label for="loginPassword" class="form-label" style="margin-bottom: 0;">Password</label>
+              <button type="button" id="forgotPasswordBtn" class="link-btn">Forgot Password?</button>
+            </div>
+            <div class="password-input-wrap">
+              <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+              <button type="button" class="toggle-password-btn" data-target="loginPassword" title="Show/Hide Password" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" id="loginSubmitBtn" class="btn-primary auth-submit-btn">
+            <span class="btn-text">Sign In to SheSafe</span>
+            <span class="btn-spinner" style="display: none;">⌛ Signing in...</span>
+          </button>
+        </form>
+
+        <!-- 2. SIGN UP FORM -->
+        <form id="signupForm" class="auth-form" style="display: none;" autocomplete="on">
+          <div class="form-group">
+            <label for="signupName" class="form-label">Full Name</label>
+            <input type="text" id="signupName" class="form-input" placeholder="Your Full Name" required autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="signupEmail" class="form-label">Email Address</label>
+            <input type="email" id="signupEmail" class="form-input" placeholder="name@example.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="signupPassword" class="form-label">Password (min. 6 characters)</label>
+            <div class="password-input-wrap">
+              <input type="password" id="signupPassword" class="form-input" placeholder="Create strong password" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password-btn" data-target="signupPassword" title="Show/Hide Password" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+            <div class="password-input-wrap">
+              <input type="password" id="signupConfirmPassword" class="form-input" placeholder="Confirm your password" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password-btn" data-target="signupConfirmPassword" title="Show/Hide Password" aria-label="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" id="signupSubmitBtn" class="btn-primary auth-submit-btn">
+            <span class="btn-text">Create SheSafe Account</span>
+            <span class="btn-spinner" style="display: none;">⌛ Creating account...</span>
+          </button>
+        </form>
+
+        <div class="auth-footer-note">
+          <p>🔒 Authenticated via Firebase. Your emergency contacts and personal safety data remain strictly private.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN PROTECTED DASHBOARD (Only Accessible To Authenticated Users)
+       ========================================================================= -->
+  <main id="mainDashboard" style="display: none;">
+    <section id="hero" class="hero-section">
+      <!-- Fixed Main Screen Corner Tag -->
+      <aside class="main-screen-corner-tag" id="mainScreenCornerTag" aria-label="Developer Attribution">
+        <span class="corner-dot-pulse"></span>
+        <span class="corner-text">DEVLOPER-PRITAM ANAND</span>
+      </aside>
+
+      <div class="container">
+        <div class="hero-badge-pill">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Instant Emergency Response Network
+        </div>
+
+        <h1 class="hero-title">Your Safety, Always Within Reach</h1>
+        <p class="hero-subtitle">Tap the SOS button to instantly blast an audible siren, share your live GPS location, and dispatch emergency alerts to your trusted contacts.</p>
+
+        <!-- Grand SOS Button -->
+        <div class="sos-button-wrapper">
+          <div class="sos-ring-outer"></div>
+          <div class="sos-ring-inner"></div>
+          <button id="sosTriggerBtn" class="sos-trigger-btn" aria-label="Trigger Emergency SOS">
+            <svg class="sos-icon" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <span id="sosBtnLabel" class="sos-label">SOS</span>
+            <span id="sosBtnSubtext" class="sos-subtext">TAP FOR HELP</span>
+          </button>
+        </div>
+
+        <!-- Rapid Actions Row -->
+        <div class="sos-actions-row">
+          <a href="tel:112" class="action-pill-btn danger-action" id="callPoliceDirectBtn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Call 112 (Police & Emergency)
+          </a>
+
+          <button id="shareLocationBtn" class="action-pill-btn primary-action">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Share Live GPS Location
+          </button>
+
+          <button id="toggleStrobeBtn" class="action-pill-btn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Strobe Flasher
+          </button>
+
+          <button id="broadcastAlertBtn" class="action-pill-btn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            Alert Trusted Contacts
+          </button>
+        </div>
+
+        <!-- Live Status Bar -->
+        <div class="status-strip">
+          <div class="strip-item">
+            <div class="strip-icon green">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <div class="strip-info">
+              <h4 id="locationStatusText">GPS Positioning</h4>
+              <p id="locationCoordsText">Determining live coordinates...</p>
+            </div>
+          </div>
+
+          <div class="strip-item">
+            <button id="copyLocationLinkBtn" class="action-pill-btn" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Map Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- SheSafe Safety Group Circle Section -->
+    <section id="safetyGroup" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="hero-badge-pill" style="margin-bottom: 0.5rem; display: inline-flex;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Verified Emergency Shield
+            </div>
+            <h2 class="section-title">SheSafe Safety Group</h2>
+            <p class="section-subtitle">Form a private, encrypted circle of up to 4 trusted guardians. Connected members stay linked for emergency alerts.</p>
+          </div>
+        </div>
+
+        <!-- Global Action Alert for Group operations -->
+        <div id="groupAlertBox" class="auth-alert" style="display: none; margin-bottom: 1.5rem;" role="alert"></div>
+
+        <!-- STATE A: No Active Group (Show Create & Join options) -->
+        <div id="noGroupState" class="group-panels-grid">
+          <!-- Panel 1: Create Safety Group -->
+          <div class="card-panel group-panel">
+            <div class="panel-header-with-badge">
+              <div class="panel-icon-bubble purple-bubble">✨</div>
+              <div>
+                <h3 class="panel-card-title">Create Safety Group</h3>
+                <p class="panel-card-subtitle">Generate a private group and invite up to 3 trusted contacts.</p>
+              </div>
+            </div>
+
+            <form id="createGroupForm" class="group-form">
+              <div class="form-group">
+                <label for="createGroupNameInput" class="form-label">Group Name</label>
+                <input type="text" id="createGroupNameInput" class="form-input" placeholder="e.g. Priya's Shield, Campus Squad" required maxlength="30">
+              </div>
+
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                  <label for="createGroupIdInput" class="form-label" style="margin-bottom: 0;">Unique Group ID (Auto-generated)</label>
+                  <button type="button" id="refreshGroupIdBtn" class="link-btn" title="Generate New ID">🔄 Regenerate</button>
+                </div>
+                <div class="id-input-wrap">
+                  <input type="text" id="createGroupIdInput" class="form-input code-font" readonly required>
+                  <button type="button" id="copyNewGroupIdBtn" class="toggle-password-btn" title="Copy Group ID">📋</button>
+                </div>
+                <small class="form-hint">Unique, non-guessable identifier stored in Cloud Firestore.</small>
+              </div>
+
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                  <label for="createGroupPasswordInput" class="form-label" style="margin-bottom: 0;">Join Credential / Password</label>
+                  <button type="button" id="refreshGroupPassBtn" class="link-btn" title="Generate Secure Credential">🔄 New Password</button>
+                </div>
+                <div class="password-input-wrap">
+                  <input type="password" id="createGroupPasswordInput" class="form-input code-font" placeholder="Secure Password" required minlength="4">
+                  <button type="button" class="toggle-password-btn" data-target="createGroupPasswordInput" title="Show/Hide">👁️</button>
+                </div>
+                <small class="form-hint">Never stored in plaintext. Cryptographically hashed using SHA-256 before storing.</small>
+              </div>
+
+              <div class="group-rules-badge">
+                <span>🛡️ Max 4 members</span>
+                <span>•</span>
+                <span>Creator is automatic Member #1</span>
+              </div>
+
+              <button type="submit" id="createGroupSubmitBtn" class="btn-primary auth-submit-btn" style="margin-top: 1rem;">
+                <span class="btn-text">Create Safety Group</span>
+                <span class="btn-spinner" style="display: none;">⌛ Creating Group...</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Panel 2: Join Existing Safety Group -->
+          <div class="card-panel group-panel">
+            <div class="panel-header-with-badge">
+              <div class="panel-icon-bubble cyan-bubble">🔗</div>
+              <div>
+                <h3 class="panel-card-title">Join Existing Group</h3>
+                <p class="panel-card-subtitle">Enter the Group ID and Join Credential provided by your group creator.</p>
+              </div>
+            </div>
+
+            <form id="joinGroupForm" class="group-form">
+              <div class="form-group">
+                <label for="joinGroupIdInput" class="form-label">Group ID</label>
+                <input type="text" id="joinGroupIdInput" class="form-input code-font" placeholder="e.g. GRP-9X7K-4M2P" required autocomplete="off" style="text-transform: uppercase;">
+              </div>
+
+              <div class="form-group">
+                <label for="joinGroupPasswordInput" class="form-label">Join Credential / Password</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="joinGroupPasswordInput" class="form-input code-font" placeholder="Enter group password" required autocomplete="off">
+                  <button type="button" class="toggle-password-btn" data-target="joinGroupPasswordInput" title="Show/Hide">👁️</button>
+                </div>
+              </div>
+
+              <div class="group-rules-badge" style="border-color: rgba(6, 182, 212, 0.25); background: rgba(6, 182, 212, 0.05);">
+                <span>🔒 Secure Verification</span>
+                <span>•</span>
+                <span>Strict 4-member limit</span>
+              </div>
+
+              <button type="submit" id="joinGroupSubmitBtn" class="btn-primary auth-submit-btn" style="margin-top: 1.85rem; background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);">
+                <span class="btn-text">Join Safety Group</span>
+                <span class="btn-spinner" style="display: none;">⌛ Verifying & Joining...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- STATE B: Active Group View (Show Group Details, Members, Leave Button) -->
+        <div id="activeGroupState" class="card-panel active-group-card" style="display: none;">
+          <div class="active-group-header">
+            <div class="active-group-title-wrap">
+              <div class="group-icon-shield">🛡️</div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  <h3 id="activeGroupName" class="active-group-title">My Safety Group</h3>
+                  <span id="activeGroupCapacityBadge" class="brand-status-tag">1 / 4 Members</span>
+                  <span id="activeUserRoleBadge" class="user-role-badge">Creator</span>
+                </div>
+                <p class="active-group-subtitle">Active Emergency Guardian Circle</p>
+              </div>
+            </div>
+
+            <div class="active-group-actions">
+              <button type="button" id="shareGroupInviteBtn" class="action-pill-btn primary-action">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                  <polyline points="16 6 12 2 8 6"></polyline>
+                  <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                Share Invite
+              </button>
+              <button type="button" id="leaveGroupBtn" class="btn-danger-sm" style="padding: 0.6rem 1rem;">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Leave Group
+              </button>
+            </div>
+          </div>
+
+          <!-- Group Credentials Pill Bar -->
+          <div class="group-credentials-bar">
+            <div class="credential-item">
+              <span class="credential-label">GROUP ID</span>
+              <div class="credential-value-wrap">
+                <span id="activeGroupIdDisplay" class="credential-code">GRP-XXXX-XXXX</span>
+                <button type="button" id="copyActiveGroupIdBtn" class="btn-icon-subtle" title="Copy Group ID">📋</button>
+              </div>
+            </div>
+
+            <!-- Join Credential displayed only when appropriate / requested -->
+            <div class="credential-item" id="activeGroupCredBox">
+              <span class="credential-label">JOIN CREDENTIAL</span>
+              <div class="credential-value-wrap">
+                <span id="activeGroupPasswordDisplay" class="credential-code">••••••••</span>
+                <button type="button" id="toggleActiveCredBtn" class="btn-icon-subtle" title="Reveal Credential">👁️</button>
+                <button type="button" id="copyActiveCredBtn" class="btn-icon-subtle" title="Copy Credential">📋</button>
+              </div>
+            </div>
+
+            <div class="credential-item" style="border-right: none;">
+              <span class="credential-label">SECURITY</span>
+              <span class="credential-code" style="color: #10b981;">SHA-256 HASHED 🔒</span>
+            </div>
+          </div>
+
+          <!-- Circle Live Emergency Monitor Card -->
+          <div id="groupSosStatusCard" class="circle-sos-monitor safe">
+            <div class="circle-status-header">
+              <div id="circleStatusIndicator" class="circle-status-indicator safe-indicator"></div>
+              <div style="flex: 1;">
+                <h4 class="circle-status-title" id="circleStatusTitle">Circle Status: All Guardians Safe</h4>
+                <p class="circle-status-desc" id="circleStatusDesc">Live SOS monitoring is active. If any member triggers an emergency, all connected devices will sound an alarm.</p>
+              </div>
+            </div>
+            <div id="circleActiveSosDetails" class="active-sos-detail-box" style="display: none;">
+              <div class="sos-meta-row">
+                <div class="sos-user-badge">
+                  <span>🚨</span>
+                  <span id="sosBroadcasterName">Priya</span>
+                  <span style="font-size: 0.8rem; font-weight: normal; color: #fecaca;">needs help!</span>
+                </div>
+                <div class="sos-time-tag" id="sosStartedTimeTag">Started 2 mins ago</div>
+              </div>
+              <div class="sos-location-strip">
+                <div>
+                  <div style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; margin-bottom: 2px;">LIVE LOCATION</div>
+                  <div id="circleSosCoordsLead" class="location-coords-lead">Loading GPS coordinates...</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span id="circleSosFreshnessTag" class="location-freshness-tag freshness-live">🟢 Live GPS</span>
+                  <a id="circleSosMapsBtn" href="#" target="_blank" rel="noopener" class="action-pill-btn primary-action" style="padding: 6px 12px; font-size: 0.8rem;">
+                    🗺️ Open Map
+                  </a>
+                </div>
+              </div>
+              <div id="circleSosActionRow" style="display: flex; gap: 8px; margin-top: 4px;">
+                <button type="button" id="circleStopSosBtn" class="btn-primary" style="background: #10b981; padding: 0.65rem 1.25rem; font-weight: 700; display: none;">
+                  🟢 I'm Safe / Stop SOS
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Members Grid (Max 4 Members) -->
+          <div class="members-roster-section">
+            <h4 class="members-roster-title">
+              Current Members (<span id="membersCountText">1</span> / 4)
+            </h4>
+            <div id="groupMembersGrid" class="group-members-grid">
+              <!-- Rendered dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Safety Circle Emergency Messages & Timeline -->
+          <div id="groupMessagesSection" class="group-messages-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 8px;">
+              <h4 class="members-roster-title" style="margin-bottom: 0;">
+                🚨 Emergency Dispatch & Circle Messages
+              </h4>
+              <span class="live-dot-badge">Live Synced</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Instant SOS events, location updates, and secure communications shared only with your Safety Circle.
+            </p>
+
+            <div id="groupMessagesList" class="group-messages-list">
+              <div class="empty-messages-hint">No emergency messages yet. Circle communications will appear here in real time.</div>
+            </div>
+
+            <form id="groupMessageForm" class="group-message-form">
+              <input type="text" id="groupMessageInput" class="form-input" placeholder="Type a message or emergency update..." maxlength="250" autocomplete="off" required>
+              <button type="submit" id="groupMessageSendBtn" class="action-pill-btn primary-action" style="padding: 0.75rem 1.25rem;">
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Helplines Directory -->
+    <section id="helplines" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">24/7 Verified Helplines</h2>
+            <p class="section-subtitle">Toll-free immediate assistance lines for police, women helpline, and crisis relief.</p>
+          </div>
+          <div class="helpline-search-bar">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="helplineSearchInput" placeholder="Search helpline or city..." aria-label="Search helplines">
+          </div>
+        </div>
+
+        <div class="helplines-grid" id="helplinesGrid">
+          <!-- 112 All-in-One Emergency -->
+          <div class="helpline-card priority-high">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">National Priority</span>
+                <span style="font-size: 1.2rem;">🚨</span>
+              </div>
+              <h3 class="helpline-name">National Emergency</h3>
+              <p class="helpline-desc">Single national unified emergency response number for Police, Fire, and Medical emergencies.</p>
+            </div>
+            <a href="tel:112" class="helpline-dial-btn" id="dial112Btn">
+              <span>Dial 112</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- 1091 Women Helpline -->
+          <div class="helpline-card priority-high">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">24/7 Women Police</span>
+                <span style="font-size: 1.2rem;">🛡️</span>
+              </div>
+              <h3 class="helpline-name">Women Helpline</h3>
+              <p class="helpline-desc">Round-the-clock emergency line dedicated to women in distress, harassment, or imminent danger.</p>
+            </div>
+            <a href="tel:1091" class="helpline-dial-btn" id="dial1091Btn">
+              <span>Dial 1091</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- 181 Women in Distress -->
+          <div class="helpline-card">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">Crisis & Support</span>
+                <span style="font-size: 1.2rem;">🤝</span>
+              </div>
+              <h3 class="helpline-name">Women Crisis Line</h3>
+              <p class="helpline-desc">Toll-free 24-hour counseling, legal guidance, and rapid rescue response for domestic distress.</p>
+            </div>
+            <a href="tel:181" class="helpline-dial-btn" id="dial181Btn">
+              <span>Dial 181</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- NCW 24/7 Helpline -->
+          <div class="helpline-card">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">NCW Commission</span>
+                <span style="font-size: 1.2rem;">⚖️</span>
+              </div>
+              <h3 class="helpline-name">NCW Emergency Cell</h3>
+              <p class="helpline-desc">National Commission for Women 24/7 helpline for emergency intervention and legal redressal.</p>
+            </div>
+            <a href="tel:7827170170" class="helpline-dial-btn" id="dialNcwBtn">
+              <span>Dial 7827170170</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- 1930 Cyber Crime Helpline -->
+          <div class="helpline-card">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">Digital Safety</span>
+                <span style="font-size: 1.2rem;">💻</span>
+              </div>
+              <h3 class="helpline-name">Cyber Crime Cell</h3>
+              <p class="helpline-desc">Assistance for online stalking, cyberbullying, morphed imagery, blackmail, or digital harassment.</p>
+            </div>
+            <a href="tel:1930" class="helpline-dial-btn" id="dial1930Btn">
+              <span>Dial 1930</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- 108 Ambulance & Medical -->
+          <div class="helpline-card">
+            <div>
+              <div class="helpline-header">
+                <span class="helpline-tag">Medical Response</span>
+                <span style="font-size: 1.2rem;">🚑</span>
+              </div>
+              <h3 class="helpline-name">Emergency Ambulance</h3>
+              <p class="helpline-desc">Fast dispatch medical emergency assistance and nearest trauma care hospital transport.</p>
+            </div>
+            <a href="tel:108" class="helpline-dial-btn" id="dial108Btn">
+              <span>Dial 108</span>
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted Emergency Contacts Section -->
+    <section id="contacts" class="section-block" style="background: rgba(19, 26, 46, 0.4);">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Emergency Guardians & Contacts</h2>
+            <p class="section-subtitle">Add your family, friends, and guardians. When you trigger an SOS, they receive your live location pin.</p>
+          </div>
+        </div>
+
+        <div class="contacts-layout">
+          <!-- Add Contact Form -->
+          <div class="card-panel">
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Add Trusted Guardian</h3>
+            <form id="addContactForm">
+              <div class="form-group">
+                <label for="contactNameInput" class="form-label">Full Name</label>
+                <input type="text" id="contactNameInput" class="form-input" placeholder="e.g. Mom, Rahul, Priya" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactPhoneInput" class="form-label">Phone Number (with Country Code)</label>
+                <input type="tel" id="contactPhoneInput" class="form-input" placeholder="+91 98765 43210" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactRelationSelect" class="form-label">Relationship</label>
+                <select id="contactRelationSelect" class="form-select">
+                  <option value="Parent">Parent</option>
+                  <option value="Sibling">Sibling</option>
+                  <option value="Partner">Partner / Spouse</option>
+                  <option value="Friend">Close Friend</option>
+                  <option value="Colleague">Colleague</option>
+                  <option value="Other">Guardian</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn-primary" id="saveContactBtn">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                Save Contact
+              </button>
+            </form>
+          </div>
+
+          <!-- Contacts List Display -->
+          <div class="card-panel">
+            <div class="contacts-list-header">
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                  Saved Guardians
+                  <span id="contactsCountBadge" class="brand-status-tag">0 saved</span>
+                </h3>
+              </div>
+              <button id="clearContactsBtn" class="btn-danger-sm">Clear All</button>
+            </div>
+
+            <div id="contactsListContainer" class="contacts-list">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Safety Tools Suite -->
+    <section id="tools" class="section-block">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Smart Safety Tools</h2>
+            <p class="section-subtitle">Discreet and tactical tools designed to protect you in unpredictable situations.</p>
+          </div>
+        </div>
+
+        <div class="tools-grid">
+          <!-- Tool 1: Fake Call Simulator -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-icon-box pink">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <h3 class="tool-title">Fake Call Simulator</h3>
+              <p class="tool-description">Simulates a realistic incoming phone call with ringtone to let you excuse yourself safely from uncomfortable conversations or cab rides.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="triggerFakeCall5" class="tool-action-btn">Call in 5s</button>
+              <button id="triggerFakeCall15" class="tool-action-btn">Call in 15s</button>
+            </div>
+          </div>
+
+          <!-- Tool 2: Walk Safe Check-in Timer -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-icon-box cyan">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <h3 class="tool-title">Safe Journey Timer</h3>
+              <p class="tool-description">Walking alone at night? Start a journey timer. If you don't check in before it expires, SheSafe sounds the SOS siren.</p>
+              <div class="walk-timer-display" id="walkTimerDisplay">00:00</div>
+              <div style="margin-bottom: 12px;">
+                <select id="walkDurationSelect" class="form-select" style="padding: 6px 10px; font-size: 0.85rem;">
+                  <option value="5">5 Minutes Walk</option>
+                  <option value="15" selected>15 Minutes Commute</option>
+                  <option value="30">30 Minutes Ride</option>
+                </select>
+              </div>
+            </div>
+            <button id="startWalkBtn" class="tool-action-btn">Start Journey Timer</button>
+          </div>
+
+          <!-- Tool 3: Discreet Audio Evidence Recorder -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-icon-box purple">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+              </div>
+              <h3 class="tool-title">Discreet Audio Evidence</h3>
+              <p class="tool-description">Records ambient conversations or verbal threats directly into secure browser memory with instant playback and download.</p>
+              <p id="evidenceStatusText" style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px;">Ready to record</p>
+              <div id="recordingsList"></div>
+            </div>
+            <button id="recordEvidenceBtn" class="tool-action-btn" style="margin-top: 10px;">
+              🎙️ Start Discreet Recording
+            </button>
+          </div>
+
+          <!-- Tool 4: Safe Zones Finder (Nearby Essentials) -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-icon-box amber">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <h3 class="tool-title">Nearby Safe Havens</h3>
+              <p class="tool-description">Instantly navigate to the closest public places, manned police stations, or 24/7 hospitals around your current area.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <a href="https://www.google.com/maps/search/police+station+near+me" target="_blank" rel="noopener" class="tool-action-btn">
+                🚓 Nearest Police Station
+              </a>
+              <a href="https://www.google.com/maps/search/hospital+near+me" target="_blank" rel="noopener" class="tool-action-btn">
+                🏥 Nearest Hospital & Trauma Care
+              </a>
+              <a href="https://www.google.com/maps/search/pharmacy+near+me" target="_blank" rel="noopener" class="tool-action-btn">
+                💊 24/7 Chemist & Pharmacy
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety Guides & Legal Rights -->
+    <section id="guides" class="section-block" style="background: rgba(19, 26, 46, 0.4);">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Knowledge, Rights & Self-Defense</h2>
+            <p class="section-subtitle">Vital knowledge every woman should have at her fingertips.</p>
+          </div>
+        </div>
+
+        <div class="guides-grid">
+          <!-- Guide 1: Physical Self-Defense -->
+          <div class="guide-card">
+            <div class="guide-header">
+              <span class="guide-badge">Tactic</span>
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Key Vulnerable Targets</h3>
+            </div>
+            <ul class="guide-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Eyes & Nose:</strong> Palm heel strike upwards into the nose causes involuntary eye-watering and disorientation.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Throat / Windpipe:</strong> Direct strike to the base of the throat disables aggressive movement instantly.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Groin & Knees:</strong> Hard upward knee or heel stomp to the instep of the foot allows immediate escape.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Guide 2: Legal Rights -->
+          <div class="guide-card">
+            <div class="guide-header">
+              <span class="guide-badge">Legal</span>
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Your Statutory Legal Rights</h3>
+            </div>
+            <ul class="guide-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Zero FIR:</strong> A woman can file a police complaint (FIR) at ANY police station regardless of jurisdiction.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Arrest Protections:</strong> Women cannot be arrested after sunset and before sunrise except under exceptional magistrate orders.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Identity Confidentiality:</strong> Victims of harassment/assault have statutory right to complete anonymity under law.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Guide 3: Digital & Ride Safety -->
+          <div class="guide-card">
+            <div class="guide-header">
+              <span class="guide-badge">Protocol</span>
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Cab & Ride Safety Rules</h3>
+            </div>
+            <ul class="guide-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Child Lock Check:</strong> Check the rear door child locks before closing the door to ensure you can open from inside.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Share Live Ride:</strong> Always share the in-app live tracking link with a trusted contact before starting the ride.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Phone Call Pose:</strong> Pretend or make a real call mentioning the cab number and ETA clearly within earshot of the driver.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: SOS Countdown Confirmation (Prevents Accidental False Alarms) -->
+  <div id="sosCountdownModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card" style="text-align: center;">
+      <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--sos-red); margin-bottom: 0.5rem;">
+        🚨 TRIGGERING SOS ALERT
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Alarm & alert broadcast starting in:
+      </p>
+
+      <div id="sosCountdownNumber" style="font-size: 4.5rem; font-weight: 900; color: #ffffff; line-height: 1; margin-bottom: 1.5rem; text-shadow: 0 0 30px var(--sos-red);">
+        3
+      </div>
+
+      <button id="cancelSosBtn" class="btn-primary" style="background: var(--bg-surface); border: 2px solid var(--border-subtle); color: #ffffff; padding: 1rem;">
+        CANCEL IMMEDIATELY
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: Emergency Broadcast Dispatcher -->
+  <div id="sosBroadcastModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close-btn">&times;</button>
+      <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--sos-red);">
+        🚨 Send Alert to Contacts
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem;">
+        Click below to dispatch your urgent message + Google Maps GPS link via WhatsApp or SMS:
+      </p>
+      <div id="broadcastContactsList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Incoming Emergency Alert for Circle Members -->
+  <div id="incomingSosModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card emergency-alert-modal">
+      <div class="emergency-modal-header">
+        <div class="emergency-icon-pulse">🚨</div>
+        <div>
+          <span class="emergency-tag-urgent">URGENT SOS SIGNAL</span>
+          <h2 id="incomingSosTitle" class="emergency-modal-title">Emergency Alert Received!</h2>
+        </div>
+      </div>
+
+      <p id="incomingSosDesc" class="emergency-modal-desc">
+        A member of your Safety Circle has activated the emergency alarm and is requesting immediate help!
+      </p>
+
+      <div class="emergency-location-card">
+        <div class="location-card-header">
+          <span class="loc-card-badge">📍 Live GPS Coordinates</span>
+          <span id="incomingSosTimeBadge" class="loc-time-badge">Just now</span>
+        </div>
+        <div id="incomingSosCoordsText" class="emergency-coords-text">
+          Fetching live coordinates...
+        </div>
+        <div id="incomingSosAccuracyText" class="emergency-accuracy-text">
+          GPS Accuracy: ±15m
+        </div>
+        <div class="emergency-location-actions">
+          <a id="incomingSosMapsLink" href="#" target="_blank" rel="noopener" class="btn-primary" style="background: #2563eb; width: 100%; text-align: center; text-decoration: none; padding: 0.8rem; border-radius: 8px; font-weight: 700; display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
+            🗺️ Open Live Track in Google Maps
+          </a>
+        </div>
+      </div>
+
+      <div class="emergency-actions-row">
+        <a href="tel:112" class="btn-danger-sm" style="flex: 1; text-align: center; text-decoration: none; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; display: inline-flex; justify-content: center; align-items: center; gap: 6px;">
+          📞 Call 112
+        </a>
+        <button id="silenceSirenBtn" class="action-pill-btn" style="flex: 1; justify-content: center; padding: 0.85rem; font-size: 0.95rem;">
+          🔕 Silence Siren
+        </button>
+        <button id="dismissIncomingSosBtn" class="action-pill-btn primary-action" style="flex: 1; justify-content: center; padding: 0.85rem; font-size: 0.95rem;">
+          Acknowledge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Realistic Fake Incoming Call Screen -->
+  <div id="fakeCallModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="fake-call-container">
+      <p style="font-size: 0.85rem; letter-spacing: 0.1em; color: #a1a1aa; text-transform: uppercase;">Incoming Call</p>
+      <div class="caller-avatar">👤</div>
+      <h2 id="fakeCallerName" class="caller-name">Dad</h2>
+      <p id="fakeCallStatus" class="caller-status">Mobile</p>
+
+      <div class="call-actions-row" id="fakeCallActions">
+        <button id="declineFakeCallBtn" class="call-btn call-decline" title="Decline">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path>
+            <line x1="23" y1="1" x2="1" y2="23"></line>
+          </svg>
+        </button>
+        <button id="acceptFakeCallBtn" class="call-btn call-accept" title="Answer">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISGUISE / STEALTH SCREEN (Masks the site as an innocent Notes/Weather app) -->
+  <div id="stealthScreen" aria-label="Stealth Disguise Screen">
+    <div class="stealth-top-bar">
+      <div class="stealth-title">📝 Daily Work Notes & Checklist</div>
+      <div id="stealthUnlockBtn" class="stealth-unlock-hint" title="Return to SheSafe">
+        🔒 Return to App (or press Esc)
+      </div>
+    </div>
+
+    <div style="max-width: 600px; margin: 0 auto;">
+      <div class="stealth-note-card">
+        <h4 style="font-weight: 600; margin-bottom: 6px;">Project Meeting Agenda</h4>
+        <p style="font-size: 0.9rem; color: #4b5563;">Review quarterly metrics and finalize marketing assets with team lead.</p>
+      </div>
+
+      <div class="stealth-note-card">
+        <h4 style="font-weight: 600; margin-bottom: 6px;">Grocery Checklist</h4>
+        <ul style="font-size: 0.9rem; color: #4b5563; padding-left: 1.25rem;">
+          <li>Almond milk & oats</li>
+          <li>Fresh greens and tomatoes</li>
+          <li>Whole wheat bread</li>
+        </ul>
+      </div>
+
+      <div class="stealth-note-card">
+        <h4 style="font-weight: 600; margin-bottom: 6px;">Weekly Schedule</h4>
+        <p style="font-size: 0.9rem; color: #4b5563;">Thursday: Client presentation at 3:00 PM. Friday: Sprint wrap-up.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Footer (Visible only when authenticated) -->
+  <footer class="site-footer" id="mainFooter" style="display: none;">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <strong style="color: var(--text-main); font-size: 1rem;">SheSafe Emergency Web Platform</strong>
+          <p class="footer-copy">This website is developed for your safety by PRITAM it's on trial mode. Wish you best of luck for future❤️</p>
+        </div>
+        <div class="footer-links">
+          <a href="#hero">SOS Hub</a>
+          <a href="#safetyGroup">Safety Group</a>
+          <a href="#helplines">Helplines</a>
+          <a href="#contacts">Emergency Contacts</a>
+          <a href="#tools">Safety Tools</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase App, Auth & Firestore SDKs (v10 compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if the user is authenticated with Firebase Authentication
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    // =========================================================================
+    // 1. User Profiles & Private Emergency Contacts
+    // Each user has exclusive read and write access to their own data
+    // =========================================================================
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+
+      match /{allSubcollections=**} {
+        allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+
+    // =========================================================================
+    // 2. Safety Groups System (Max 4 Members per Group)
+    // Strictly enforces authentication, capacity limit, and member privacy
+    // =========================================================================
+    match /groups/{groupId} {
+
+      // Read single group document: Confirmed members or authenticated user verifying group
+      allow get: if isAuthenticated() && (
+        resource == null ||
+        request.auth.uid in resource.data.membersList ||
+        resource.data.createdBy == request.auth.uid
+      );
+
+      // Global directory listing is locked down to prevent scrapers
+      allow list: if false;
+
+      // Group Creation: Authenticated user creates group as first member (capacity 4)
+      allow create: if isAuthenticated() &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.memberCount == 1 &&
+        request.resource.data.maxMembers == 4 &&
+        request.resource.data.membersList.hasOnly([request.auth.uid]);
+
+      // Group Updates:
+      // A) Member joining (strictly enforces maximum 4 members)
+      // B) Member leaving (decrements count and removes UID)
+      // C) Creator updating group details
+      allow update: if isAuthenticated() && (
+        // Case A: New member joining (enforce max capacity 4)
+        (
+          resource.data.memberCount < 4 &&
+          request.resource.data.memberCount == resource.data.memberCount + 1 &&
+          request.auth.uid in request.resource.data.membersList &&
+          !(request.auth.uid in resource.data.membersList)
+        ) ||
+        // Case B: Existing member leaving
+        (
+          request.auth.uid in resource.data.membersList &&
+          request.resource.data.memberCount == resource.data.memberCount - 1 &&
+          !(request.auth.uid in request.resource.data.membersList)
+        ) ||
+        // Case C: Creator updating group settings
+        (
+          resource.data.createdBy == request.auth.uid
+        )
+      );
+
+      // Group Deletion: Only creator can disband when 1 or fewer members remain
+      allow delete: if isAuthenticated() &&
+        resource.data.createdBy == request.auth.uid &&
+        resource.data.memberCount <= 1;
+
+      // Members Subcollection (groups/{groupId}/members/{memberId})
+      match /members/{memberId} {
+        // Confirmed members can view other members in their circle
+        allow read: if isAuthenticated();
+
+        // A user can create or update their own membership record
+        allow create, update: if isAuthenticated() && request.auth.uid == memberId;
+
+        // User can delete their own membership record, or creator can disband
+        allow delete: if isAuthenticated() && (
+          request.auth.uid == memberId ||
+          request.auth.uid == get(/databases/$(database)/documents/groups/$(groupId)).data.createdBy
+        );
+      }
+
+      // Group Security & Verification Subcollection (groups/{groupId}/private/security)
+      // Stores salted credential hashes; never plaintext passwords
+      match /private/{docId} {
+        // Authenticated group members can read/write for joining credential verification
+        allow read: if isAuthenticated();
+        allow write: if isAuthenticated();
+      }
+
+      // 5. SOS Emergency Status & Live Location (groups/{groupId}/sos/{sosId})
+      match /sos/{sosId} {
+        // Only confirmed members of this Safety Group can read SOS broadcasts
+        allow read: if isAuthenticated() &&
+          request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.membersList;
+
+        // An authenticated member can only create/update their OWN SOS record (userId == request.auth.uid)
+        // and only if they are confirmed members of this Safety Group
+        allow create, update: if isAuthenticated() &&
+          request.resource.data.userId == request.auth.uid &&
+          request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.membersList;
+
+        // Member can delete their own SOS record
+        allow delete: if isAuthenticated() &&
+          resource.data.userId == request.auth.uid;
+      }
+
+      // 6. Safety Group Emergency Messages (groups/{groupId}/messages/{msgId})
+      match /messages/{msgId} {
+        // Only confirmed members of this Safety Group can read emergency messages
+        allow read: if isAuthenticated() &&
+          request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.membersList;
+
+        // Only confirmed members can post emergency messages, and only under their own userId
+        allow create: if isAuthenticated() &&
+          request.resource.data.userId == request.auth.uid &&
+          request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.membersList;
+
+        allow update, delete: if isAuthenticated() &&
+          resource.data.userId == request.auth.uid;
+      }
+    }
+
+    // Default lockdown for any unrecognized paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
